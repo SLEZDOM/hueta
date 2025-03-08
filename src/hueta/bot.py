@@ -25,35 +25,38 @@ from bot_config import (
 
 
 def create_storage(storage_config: BaseStorageConfig) -> BaseStorage:
-    match storage_config.type:
-        case StorageType.MEMORY:
-            return MemoryStorage()
-        case StorageType.REDIS:
-            if storage_config.config is None:
-                raise ValueError("you have to specify redis config for use redis storage")
-            return RedisStorage.from_url(
-                storage_config.config.url(),
-                key_builder=DefaultKeyBuilder(
-                    with_bot_id=True,
-                    with_destiny=True
-                )
+    if storage_config.type == StorageType.MEMORY:
+        return MemoryStorage()
+
+    elif storage_config.type == StorageType.REDIS:
+        if storage_config.config is None:
+            raise ValueError("you have to specify redis config for use redis storage")
+
+        return RedisStorage.from_url(
+            storage_config.config.url(),
+            key_builder=DefaultKeyBuilder(
+                with_bot_id=True,
+                with_destiny=True
             )
-        case _:
-            raise NotImplementedError
+        )
+
+    else:
+        raise NotImplementedError
 
 
 def create_event_isolation(
     storage_config: BaseStorageConfig
 ) -> BaseEventIsolation:
-    match storage_config.type:
-        case StorageType.MEMORY:
-            return SimpleEventIsolation()
-        case StorageType.REDIS:
-            if storage_config.config is None:
-                raise ValueError("you have to specify redis config for use redis storage")
-            return RedisEventIsolation.from_url(storage_config.config.url())
-        case _:
-            raise NotImplementedError
+    if storage_config.type == StorageType.MEMORY:
+        return SimpleEventIsolation()
+
+    elif storage_config.type == StorageType.REDIS:
+        if storage_config.config is None:
+            raise ValueError("you have to specify redis config for use redis storage")
+        return RedisEventIsolation.from_url(storage_config.config.url())
+
+    else:
+        raise NotImplementedError
 
 
 def create_bot(bot_config: BotConfig) -> Bot:
