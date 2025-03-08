@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from infrastructure.persistence.persistence_config import (
+from hueta.infrastructure.persistence.persistence_config import (
     BaseDBConfig,
     BaseStorageConfig,
     SQLiteConfig,
@@ -22,10 +22,10 @@ class ConfigParseError(ValueError):
 
 
 def get_env_var(key: str) -> str:
-    val = os.getenv(key)
-    if not val:
+    value = os.getenv(key)
+    if not value:
         raise ConfigParseError(f"Environment variable {key} is not set.")
-    return val
+    return value
 
 
 def load_yaml_config(path: str | Path) -> dict:
@@ -41,7 +41,7 @@ def get_db_config(db_config: dict) -> BaseDBConfig:
             connector=db_config.get("connector", "sqlite"),
             path=get_env_var("BOT_DATABASE_SQLITE_PATH")
         )
-    
+
     elif db_type.startswith("mysql"):
         return MySQLConfig(
             connector=db_config.get("connector", "pymysql"),
@@ -96,7 +96,7 @@ class BotConfig:
 
 def load_bot_config() -> BotConfig:
     config_path = get_env_var("BOT_CONFIG_PATH")
-    config_data = load_yaml_config(config_path)
+    config_data = load_yaml_config(Path(__file__).resolve().parent.parent.parent / config_path)
 
     return BotConfig(
         bot_token=get_env_var("BOT_TOKEN"),

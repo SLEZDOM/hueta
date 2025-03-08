@@ -12,11 +12,11 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from dishka.integrations.aiogram import setup_dishka
 
-from presentation.middlewares import setup_middlewares
-from presentation.handlers import setup_handlers
-from infrastructure.logging import setup_logging
-from di import setup_bot_container
-from bot_config import (
+from hueta.presentation.middlewares import setup_middlewares
+from hueta.presentation.handlers import setup_handlers
+from hueta.infrastructure.logging import setup_logging
+from hueta.di import setup_bot_container
+from hueta.config import (
     load_bot_config,
     BotConfig,
     BaseStorageConfig,
@@ -53,6 +53,7 @@ def create_event_isolation(
     elif storage_config.type == StorageType.REDIS:
         if storage_config.config is None:
             raise ValueError("you have to specify redis config for use redis storage")
+
         return RedisEventIsolation.from_url(storage_config.config.url())
 
     else:
@@ -72,8 +73,12 @@ def create_bot(bot_config: BotConfig) -> Bot:
 def create_dispatcher(
     bot_config: BotConfig
 ) -> Dispatcher:
-    storage = create_storage(bot_config.storage)
-    event_isolation = create_event_isolation(bot_config.storage)
+    storage: BaseStorage = create_storage(
+        storage_config=bot_config.storage
+    )
+    event_isolation: BaseEventIsolation = create_event_isolation(
+        storage_config=bot_config.storage
+    )
 
     dispatcher = Dispatcher(
         storage=storage,
@@ -87,8 +92,9 @@ async def main() -> None:
 
     setup_logging(bot_config.logging_config_path)
 
-    bot = create_bot(bot_config)
-    dispatcher = create_dispatcher(bot_config)
+    bot = create_bot(bot_config=bot_config)
+    dispatcher = create_dispatcher(bot_config=bot_config)
+
     bot_container = setup_bot_container()
 
     setup_middlewares(

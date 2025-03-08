@@ -1,10 +1,10 @@
 from typing import AsyncGenerator, AsyncIterable
 
 from sqlalchemy.ext.asyncio import (
+    create_async_engine,
     AsyncEngine,
     AsyncSession,
     async_sessionmaker,
-    create_async_engine,
 )
 from dishka import (
     AsyncContainer,
@@ -14,20 +14,20 @@ from dishka import (
     provide,
 )
 
-from application.ports.persistence.transaction_manager import (
+from hueta.application.ports.persistence.transaction_manager import (
     TransactionManager
 )
-from infrastructure.persistence.transaction_manager import (
+from hueta.infrastructure.persistence.transaction_manager import (
     SQLAlchemyTransactionManager
 )
-from bot_config import (
+from hueta.config import (
     load_bot_config,
     BotConfig,
     BaseDBConfig,
 )
 
 
-class ConfigProvider(Provider):
+class BotConfigProvider(Provider):
     @provide(scope=Scope.APP)
     def provide_config(
         self,
@@ -86,7 +86,7 @@ class PersistenceProvider(Provider):
 
 def setup_bot_providers() -> list[Provider]:
     providers = [
-        ConfigProvider(),
+        BotConfigProvider(),
         PersistenceProvider(),
     ]
 

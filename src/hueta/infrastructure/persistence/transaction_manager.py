@@ -1,10 +1,10 @@
 from typing import Any
 
-from application.ports.persistence.transaction_manager import (
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from hueta.application.ports.persistence.transaction_manager import (
     TransactionManager
 )
-
-from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class SQLAlchemyTransactionManager(TransactionManager):

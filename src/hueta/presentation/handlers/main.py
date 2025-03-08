@@ -7,7 +7,6 @@ from aiogram.filters import (
     ExceptionTypeFilter,
     CommandStart
 )
-from aiogram.exceptions import TelegramNetworkError
 from aiogram_dialog.api.exceptions import (
     UnknownIntent,
     OutdatedIntent

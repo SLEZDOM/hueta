@@ -4,7 +4,6 @@ from typing import Any, List, Optional, Type
 from aiogram import Bot
 from aiogram.methods import TelegramMethod, GetUpdates
 from aiogram.methods.base import Response, TelegramType
-
 from aiogram.client.session.middlewares.base import (
     BaseRequestMiddleware,
     NextRequestMiddlewareType
@@ -38,4 +37,5 @@ class BotRequestLoggerMiddleware(BaseRequestMiddleware):
                 bot.id,
                 deserialize_telegram_object_to_python(response)
             )
+
         return response
