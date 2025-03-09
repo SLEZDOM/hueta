@@ -14,3 +14,8 @@ venv.bak/
 
 # Logging
 *.log
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json

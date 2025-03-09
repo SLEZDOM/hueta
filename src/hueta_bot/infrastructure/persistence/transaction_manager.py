@@ -2,7 +2,7 @@ from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from hueta.application.ports.persistence.transaction_manager import (
+from hueta_bot.application.ports.persistence.transaction_manager import (
     TransactionManager
 )
 

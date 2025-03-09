@@ -14,22 +14,24 @@ from dishka import (
     provide,
 )
 
-from hueta.application.ports.persistence.transaction_manager import (
+from hueta_bot.application.ports.persistence.transaction_manager import (
     TransactionManager
 )
-from hueta.infrastructure.persistence.transaction_manager import (
+from hueta_bot.infrastructure.persistence.transaction_manager import (
     SQLAlchemyTransactionManager
 )
-from hueta.config import (
+from hueta_bot.infrastructure.persistence.persistence_config import (
+    BaseDBConfig
+)
+from hueta_bot.main.config import (
     load_bot_config,
-    BotConfig,
-    BaseDBConfig,
+    BotConfig
 )
 
 
 class BotConfigProvider(Provider):
     @provide(scope=Scope.APP)
-    def provide_config(
+    def provide_bot_config(
         self,
     ) -> BotConfig:
         config = load_bot_config()

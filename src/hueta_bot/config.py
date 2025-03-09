@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from hueta.infrastructure.persistence.persistence_config import (
+from hueta_bot.infrastructure.persistence.persistence_config import (
     BaseDBConfig,
     BaseStorageConfig,
     SQLiteConfig,

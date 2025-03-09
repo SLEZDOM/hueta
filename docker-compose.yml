@@ -1,0 +1,12 @@
+services:
+  bot:
+    build: .
+    container_name: hueta_bot
+    restart: on-failure
+    env_file:
+      - .env
+    command: python3 -m hueta_bot.main.bot
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"

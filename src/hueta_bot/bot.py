@@ -12,11 +12,11 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from dishka.integrations.aiogram import setup_dishka
 
-from hueta.presentation.middlewares import setup_middlewares
-from hueta.presentation.handlers import setup_handlers
-from hueta.infrastructure.logging import setup_logging
-from hueta.di import setup_bot_container
-from hueta.config import (
+from hueta_bot.presentation.middlewares import setup_middlewares
+from hueta_bot.presentation.handlers import setup_handlers
+from hueta_bot.infrastructure.logging import setup_logging
+from hueta_bot.di import setup_bot_container
+from hueta_bot.config import (
     load_bot_config,
     BotConfig,
     BaseStorageConfig,

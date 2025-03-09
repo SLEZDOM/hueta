@@ -17,6 +17,7 @@ import yaml
 
 
 def setup_logging(path: str | Path) -> None:
+    print(path)
     if os.path.exists(path):
         with open(path, "r") as f:
             logging_config = yaml.safe_load(f)

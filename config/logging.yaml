@@ -19,17 +19,10 @@ handlers:
     level: DEBUG
     formatter: simple
     stream: ext://sys.stdout
-  file:
-    class: logging.FileHandler
-    level: DEBUG
-    formatter: simple
-    filename: logs.log
-    mode: a
-    encoding: utf-8
 
 root:
   level: DEBUG
-  handlers: [console, file]
+  handlers: [console]
 
 loggers:
   pyrogram:

@@ -74,6 +74,7 @@ class BaseStorageConfig(Protocol):
 @dataclass(frozen=True)
 class MemoryStorageConfig(BaseStorageConfig):
     type: StorageType = StorageType.MEMORY
+    config: Optional[BaseDBConfig] = None
 
 
 @dataclass(frozen=True)
