@@ -8,6 +8,9 @@ from aiogram.utils.serialization import (
 )
 
 
+logger = logging.getLogger(__name__)
+
+
 class TelegramEventLoggerMiddleware(BaseMiddleware):
     async def __call__(
         self,

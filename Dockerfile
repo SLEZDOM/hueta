@@ -1,12 +1,10 @@
-FROM python:3.11-slim-buster
+FROM python:3.11-slim
 
-WORKDIR /usr/src/app/src
+COPY requirements.txt /
+RUN python -m venv /.venv && /.venv/bin/pip install -r /requirements.txt && mkdir /app
+WORKDIR /app
+ADD pyproject.toml ./
+COPY . ./
+RUN /.venv/bin/pip install -e /app
 
-COPY ./pyproject.toml ./
-
-COPY . .
-
-RUN pip install --upgrade pip
-RUN pip install -e .
-
-CMD ["poetry", "run", "hueta-bot"]
+CMD ["/.venv/bin/hueta-bot"]
