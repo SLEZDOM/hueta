@@ -1,9 +1,11 @@
 from aiogram import Dispatcher
 
-from .main import setup
+from . import main
 
 
 def setup_handlers(
     dispatcher: Dispatcher
 ) -> None:
-    setup(dispatcher=dispatcher)
+    main.setup(
+        dispatcher=dispatcher
+    )

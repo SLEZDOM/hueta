@@ -5,6 +5,9 @@ services:
     restart: on-failure
     env_file:
       - .env
+    volumes:
+      - ./config/bot.yaml:/app/config/bot.yaml:ro
+      - ./config/logging.yaml:/app/config/logging.yaml:ro
     logging:
       driver: "json-file"
       options:

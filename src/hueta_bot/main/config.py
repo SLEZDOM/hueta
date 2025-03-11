@@ -17,10 +17,6 @@ from hueta_bot.infrastructure.persistence.persistence_config import (
 )
 
 
-def get_project_dir(parents: int = 3) -> Path:
-    return Path(__file__).resolve().parents[parents]
-
-
 class ConfigParseError(ValueError):
     pass
 
@@ -99,10 +95,8 @@ class BotConfig:
 
 
 def load_bot_config() -> BotConfig:
-    project_root: str = get_project_dir()
-
-    config_path: Path = project_root / get_env_var("BOT_CONFIG_PATH")
-    logging_config_path: Path = project_root / get_env_var("LOGGING_CONFIG_PATH")
+    config_path: Path = get_env_var("BOT_CONFIG_PATH")
+    logging_config_path: Path = get_env_var("LOGGING_CONFIG_PATH")
 
     config_data: dict = load_yaml_config(config_path)
 
